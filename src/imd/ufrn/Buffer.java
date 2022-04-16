@@ -16,28 +16,28 @@ public class Buffer<T> {
     }
 
     public void add(T i) {
-//        try {
-//            semaphoreP.acquire();
-//            semaphoreC.release();
+        try {
+            semaphoreP.acquire();
+            semaphoreC.release();
             synchronized (this) {
                 data.add(i);
             }
 
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
     public T remove() {
-//        try {
-//            semaphoreC.acquire();
-//            semaphoreP.release();
+        try {
+            semaphoreC.acquire();
+            semaphoreP.release();
             synchronized (this) {
                 return data.remove();
             }
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
