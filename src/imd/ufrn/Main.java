@@ -9,10 +9,9 @@ public class Main {
         List<Subscribe> consumerList = new ArrayList<>();
         Buffer<Integer> buffer = new Buffer<>(new ArrayDeque<>());
         Publisher<Integer> p1;
-        Publisher<Integer> p2;
 
 
-        for (int i=0; i < 9; i++) {
+        for (int i=0; i < 5; i++) {
             consumerList.add(new Subscribe(buffer));
         }
         p1 =  new Publisher(buffer, consumerList);
@@ -21,22 +20,11 @@ public class Main {
             p1.addNext(i);
         }
 
-        p1.notifyConsumers();
+        p1.notifySubscribers();
 
-        long sum = 0;
-        int j;
-        for( j = 0; j < 2000000; j++) {
-            p1.addNext(j);
-            sum += Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
-        }
-
-        try {
-            p1.join();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        System.out.println(sum/j);
+            for(int i = 0; ; i++) {
+                p1.addNext(i);
+            }
 
     }
 }

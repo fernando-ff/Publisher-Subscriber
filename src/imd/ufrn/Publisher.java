@@ -15,13 +15,9 @@ public class Publisher<T> extends Thread{
         this.subscribes = consumers;
     }
 
-    public void addConsumer(Subscribe c) {
+    public void addSubscriber(Subscribe c) {
         System.out.println("[LOG]  Publiher.addConsumer #" + (subscribes.size()+1));
         subscribes.add(c);
-    }
-
-    public void removeConsumer(Subscribe c) {
-        buffer.remove();
     }
 
     public void addNext(T i) {
@@ -29,7 +25,7 @@ public class Publisher<T> extends Thread{
         System.out.println(String.format("[LOG] Publisher.addNext(%d)", i));
     }
 
-    public void notifyConsumers() {
+    public void notifySubscribers() {
         System.out.println("[LOG]  Publisher.notifyConsumers");
         this.subscribes.forEach(s -> {
             s.start();
